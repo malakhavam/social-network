@@ -14,10 +14,10 @@ const {
 router.route('/').get(getAllThoughts);
 
 // Directs to: /api/thoughts/:id <GET, PUT, DELETE>
-router.route('/:id').get(getThoughtsById).put(updateThoughts).delete(deleteThoughts); 
+router.route('/:id').get(getThoughtById).put(updateThought).delete(deleteThought); 
 
 // Directs to: /api/thoughts/:userId <POST>
-router.route('/:userId').post(createThoughts);
+router.route('/:userId').post(createThought);
 
 // Directs to: /api/thoughts/:thoughtId/reactions <POST>
 router.route('/:thoughtId/reactions').post(addReaction);
