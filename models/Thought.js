@@ -1,5 +1,5 @@
-const dateFormat = require('../utils/dateFormat');
 const { Schema, model, Types } = require('mongoose');
+const dateFormat = require('../utils/dateFormat');
 
 const reactionSchema = new Schema(
   {
@@ -30,26 +30,24 @@ const reactionSchema = new Schema(
 );
 
 const thoughtSchema = new Schema(
-{
-  thoughtText: {
-    type: String,
-    required: true,
-    maxlength: 280,
+  {
+    thoughtText: {
+      type: String,
+      required: true,
+      maxlength: 280,
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+      get: (createdAtVal) => dateFormat(createdAtVal),
+    },
+    username: {
+      type: String,
+      required: true,
+    },
+    reactions: [reactionSchema],
   },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-    timeStamp: { createdAt: 'created_at' },
-  },
-  username: {
-    type: String,
-    required: true,
-  },
-  reaction: [reactionSchema],
-  
-},
-
-{
+  {
     toJSON: {
       virtuals: true,
       getters: true,
@@ -58,10 +56,10 @@ const thoughtSchema = new Schema(
   }
 );
 
+// get total count of reactions and replies
 thoughtSchema.virtual('reactionCount').get(function () {
-    return this.reactions.length;
-  });
-  
+  return this.reactions.length;
+});
 
 const Thought = model('Thought', thoughtSchema);
 
