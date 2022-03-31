@@ -47,7 +47,7 @@ const thoughtController = {
       .then((thoughtData) => {
         return User.findOneAndUpdate(
           { _id: body.userId },
-          { $push: { thoughtData_id } },
+          { $push: { thoughts: thoughtData._id } },
           { new: true }
         );
       })
